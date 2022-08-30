@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace WebApplication1.Controllers
 {
@@ -11,7 +12,25 @@ namespace WebApplication1.Controllers
         public static Pessoa p2 = new Pessoa("Bruno Rosa", "111.111.111", "1980-05-10");
         public static Pessoa p3 = new Pessoa("Paula Torres", "333.333.333", "2003-10-18");
 
+
         public static List<Pessoa> pessoas = new List<Pessoa>() { p1, p2, p3 };
+
+        private readonly ILogger<PessoaController> _logger;
+        private List<Pessoa> pessoasLog { get; set; }
+
+        public PessoaController(ILogger<PessoaController> logger)
+        {
+            _logger = logger;
+            pessoasLog = pessoas.Select(p => new Pessoa
+            {
+                Nome = p.Nome,
+                Cpf = p.Cpf,
+                DataNasc = p.DataNasc,
+
+            }).ToList();
+
+
+        }
 
         [HttpGet]
         public List<Pessoa> Listar()
@@ -27,10 +46,12 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPut]
-        public Pessoa Alterar(int i, Pessoa p)
-        {
-            pessoas[i] = p;
-            return pessoas[i];
+        public List<Pessoa> Alterar(int i, Pessoa novop)
+        {   var p = pessoas.Find(p => p.Id == i);
+            p.Nome = novop.Nome;
+            p.Cpf = novop.Cpf;
+            p.DataNasc = novop.DataNasc;
+            return pessoas;
         }
 
         [HttpDelete]
