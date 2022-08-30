@@ -27,6 +27,7 @@
             DataNasc = Convert.ToDateTime(data);//.CultureInfo.InvariantCulture;
             Idade = GetAge();
         }
+        //teste
 
         public static void AddPessoa(Pessoa pessoa)
         {
