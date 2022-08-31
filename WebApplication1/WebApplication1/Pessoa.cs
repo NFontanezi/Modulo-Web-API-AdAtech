@@ -1,14 +1,26 @@
-﻿namespace WebApplication1
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApplication1
 {
     public class Pessoa
     {
         public static int id_value = 1;
+        [Key]
         public int Id { get; private set; }
-        public string Nome { get; set; }
+
+        [Required(ErrorMessage = "Campo {0} Obrigatório", AllowEmptyStrings = false)]
+        public string? Nome { get; set; }
+
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [MaxLength(11, ErrorMessage = "Campo {0} deve conter 11 caracteres")]
+        [MinLength(11, ErrorMessage = "Campo {0} deve conter 11 caracteres")]
+        [StringLength(11, MinimumLength= 11)]
 
         public string Cpf { get; set; }
+        [Required(ErrorMessage = "Campo Obrigatório")]
 
-        public DateTime DataNasc { get; set; }
+        [DisplayFormat(DataFormatString = "mm/dd/yyyy")]
+        public DateTime DataNasc { get; set; } // o que é ?, se usar nao funciona
 
         public int Idade { get; private set; }
 
