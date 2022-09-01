@@ -4,9 +4,9 @@ namespace WebApplication1
 {
     public class Pessoa
     {
-        public static int id_value = 1;
+        //public static long id_value = 1;
         [Key]
-        public int Id { get; private set; }
+        public long Id { get; set; }
 
         [Required(ErrorMessage = "Campo {0} Obrigatório", AllowEmptyStrings = false)]
         public string? Nome { get; set; }
@@ -18,28 +18,15 @@ namespace WebApplication1
 
         public string Cpf { get; set; }
         [Required(ErrorMessage = "Campo Obrigatório")]
-
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "mm/dd/yyyy")]
-        public DateTime DataNasc { get; set; } // o que é ?, se usar nao funciona
+        public DateTime DataNascimento { get; set; } // o que é ?, se usar nao funciona
 
-        public int Idade { get; private set; }
+        public int Idade { get { return GetAge(); } }
 
         public static List<Pessoa> pessoas = new List<Pessoa>();
 
-        public Pessoa()
-        {
-
-        }
-
-        public Pessoa(string nome, string cpf, string data)
-        {
-            Id = id_value++;
-            Nome = nome;
-            Cpf = cpf;
-            DataNasc = Convert.ToDateTime(data);//.CultureInfo.InvariantCulture;
-            Idade = GetAge();
-        }
-        //teste
+  
 
         public static void AddPessoa(Pessoa pessoa)
         {
@@ -48,8 +35,8 @@ namespace WebApplication1
 
         public int GetAge()
         {
-            int idade = DateTime.Now.Year - DataNasc.Year;
-            if (DateTime.Now.DayOfYear < DataNasc.DayOfYear)
+            int idade = DateTime.Now.Year - DataNascimento.Year;
+            if (DateTime.Now.DayOfYear < DataNascimento.DayOfYear)
             {
                 idade--;
             }
