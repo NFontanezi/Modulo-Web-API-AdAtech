@@ -1,6 +1,7 @@
 ﻿
 using APIPessoa.Core.Interface;
 using APIPessoa.Core.Model;
+using APIPessoa.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -10,6 +11,7 @@ namespace APIPessoa.Controllers
     [ApiController]
     [Consumes("application/json")] //só consome json
     [Produces("application/json")] //só produz
+    [TypeFilter(typeof(LogResourceFilter))] // aplica em todos os metodos auto-reosuce-action desta controller
     public class PessoaController : ControllerBase
     {
         /* CONSTRUTOR SEM BD
@@ -53,6 +55,9 @@ namespace APIPessoa.Controllers
 
         [HttpGet("/pessoa/consultar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [TypeFilter(typeof(LogActionFilter))] //sem injeção
+        [TypeFilter(typeof(LogAuthorizationFilter))]
+        
         public ActionResult<List<Pessoa>> GetPessoa()
         {
             return Ok(_pessoaService.GetPessoas());
@@ -73,6 +78,7 @@ namespace APIPessoa.Controllers
         [HttpPost("pessoa/cadastrar")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ServiceFilter(typeof(ValidateCpfActionFilter))]
 
         public ActionResult<Pessoa> PostPessoa(Pessoa p)
         {
@@ -89,6 +95,7 @@ namespace APIPessoa.Controllers
         [HttpPut("pessoa/alterar/id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ServiceFilter(typeof(GenerateProductActionFilter))] //confirma se id existe
         public ActionResult<Pessoa> PutPessoa(long id, Pessoa p)
         {
             if (!_pessoaService.UpdatePessoa(id, p))
@@ -108,12 +115,14 @@ namespace APIPessoa.Controllers
         [HttpDelete("pessoa/deletar/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ServiceFilter(typeof(GenerateProductActionFilter))] 
 
         public ActionResult<List<Pessoa>> DeletePessoa(long id)
         {
             if (!_pessoaService.DeletePessoa(id))
             {
-                return NotFound();
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError); //encontrou ja o ID
 
             }
             return NoContent();

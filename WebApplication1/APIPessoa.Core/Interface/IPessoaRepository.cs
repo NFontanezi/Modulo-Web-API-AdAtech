@@ -10,8 +10,10 @@ namespace APIPessoa.Core.Interface
 
       Pessoa GetPessoabyCpf(string cpf);
 
+        Pessoa GetPessoabyId(long id);
 
-      bool InsertPessoa(Pessoa pessoa);
+
+        bool InsertPessoa(Pessoa pessoa);
 
          bool UpdatePessoa(long id, Pessoa pessoa);
 

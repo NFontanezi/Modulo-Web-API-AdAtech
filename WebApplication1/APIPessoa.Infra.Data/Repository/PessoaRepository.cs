@@ -45,6 +45,21 @@ namespace APIPessoa.Data.Infra.Repository
 
         }
 
+        public Pessoa GetPessoabyId(long id)
+        {
+            var query = "SELECT * FROM clientes WHERE id = @id";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("id", id);
+
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            using var conn = new SqlConnection(connectionString);
+
+            return conn.QueryFirstOrDefault<Pessoa>(query, parameters);
+
+        }
+
         public bool InsertPessoa(Pessoa pessoa) //post
         {
             var query = "INSERT INTO clientes VALUES ( @cpf, @nome, @datanascimento, @idade)";
