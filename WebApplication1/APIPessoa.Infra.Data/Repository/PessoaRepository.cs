@@ -1,10 +1,14 @@
-﻿using Dapper;
+﻿using APIPessoa.Core.Model;
+using APIPessoa.Core.Interface;
+using Dapper;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
-namespace WebApplication1.Repository
+namespace APIPessoa.Data.Infra.Repository
    
 {
-    public class PessoaRepository
+    public class PessoaRepository : IPessoaRepository
+
     {
         private readonly IConfiguration _configuration;
 

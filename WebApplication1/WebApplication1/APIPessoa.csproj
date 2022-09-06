@@ -16,4 +16,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\APIPessoa.Core\APIPessoa.Core.csproj" />
+    <ProjectReference Include="..\APIPessoa.Infra.Data\APIPessoa.Infra.Data.csproj" />
+  </ItemGroup>
+
 </Project>

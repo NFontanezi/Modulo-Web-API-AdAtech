@@ -1,9 +1,10 @@
 ﻿
+using APIPessoa.Core.Interface;
+using APIPessoa.Core.Model;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Repository;
 
 
-namespace WebApplication1.Controllers
+namespace APIPessoa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -39,15 +40,14 @@ namespace WebApplication1.Controllers
 
 
 
-        private readonly IConfiguration _configuration;
+        private readonly IPessoaService _pessoaService;
 
-        public PessoaRepository _repositoryPessoa;
 
-        public PessoaController(IConfiguration configuration)
+        public PessoaController(IPessoaService service)
         {
 
-            _configuration = configuration;
-            _repositoryPessoa = new PessoaRepository(_configuration);
+            _pessoaService = service;
+           
         }
 
 
@@ -55,7 +55,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<Pessoa>> GetPessoa()
         {
-            return Ok(_repositoryPessoa.GetPessoas());
+            return Ok(_pessoaService.GetPessoas());
         }
 
         [HttpGet("pessoa/consultar/{cpf}")]
@@ -63,11 +63,11 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<List<Pessoa>> GetPessoaByCpf(string cpf)
         {
-            if (_repositoryPessoa.GetPessoabyCpf(cpf) == null)
+            if (_pessoaService.GetPessoabyCpf(cpf) == null)
             {
                 return BadRequest();
             }
-            return Ok(_repositoryPessoa.GetPessoabyCpf(cpf));
+            return Ok(_pessoaService.GetPessoabyCpf(cpf));
         }
 
         [HttpPost("pessoa/cadastrar")]
@@ -76,7 +76,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult<Pessoa> PostPessoa(Pessoa p)
         {
-            if (!_repositoryPessoa.InsertPessoa(p))
+            if (!_pessoaService.InsertPessoa(p))
             {
                 return BadRequest();
             }
@@ -91,7 +91,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Pessoa> PutPessoa(long id, Pessoa p)
         {
-            if (!_repositoryPessoa.UpdatePessoa(id, p))
+            if (!_pessoaService.UpdatePessoa(id, p))
             {
                 return BadRequest();
             }
@@ -111,7 +111,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult<List<Pessoa>> DeletePessoa(long id)
         {
-            if (!_repositoryPessoa.DeletePessoa(id))
+            if (!_pessoaService.DeletePessoa(id))
             {
                 return NotFound();
 
