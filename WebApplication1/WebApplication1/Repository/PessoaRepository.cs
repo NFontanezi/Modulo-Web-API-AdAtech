@@ -60,16 +60,16 @@ namespace WebApplication1.Repository
                         where id = @id";
 
             pessoa.Id = id;
-            var parameters = new DynamicParameters();
-           parameters.Add("id", pessoa.Id);
+            var parameters = new DynamicParameters(pessoa);
+           /* parameters.Add("id", pessoa.Id);
             parameters.Add("nome", pessoa.Nome);
             parameters.Add("cpf", pessoa.Cpf);
             parameters.Add("datanascimento", pessoa.DataNascimento);
-            parameters.Add("idade", pessoa.Idade);
+            parameters.Add("idade", pessoa.Idade);*/
 
             using var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
 
-            return conn.Execute(query, parameters) > 1;
+            return conn.Execute(query, parameters) == 1;
         }
 
         public bool DeletePessoa(long id)

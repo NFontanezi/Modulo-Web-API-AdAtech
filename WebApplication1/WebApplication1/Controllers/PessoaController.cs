@@ -86,7 +86,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        [HttpPut("pessoa/alterar/{id}")]
+        [HttpPut("pessoa/alterar/id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Pessoa> PutPessoa(long id, Pessoa p)
