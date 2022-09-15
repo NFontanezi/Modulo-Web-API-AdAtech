@@ -2,8 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIPessoa.Controllers
-{
-    public class TokenController : Controller
+{   [Route("api/[controller]")]
+    [ApiController]
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    public class TokenController : ControllerBase
     {
 
         private readonly IPessoaService _pessoaService;
