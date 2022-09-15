@@ -16,16 +16,18 @@ builder.Services.AddMvc(options =>  //filtro globaL, todas as controllers
 {
     options.Filters.Add<LogResultFilter>();
     options.Filters.Add<GenerateExceptionFilter>();
-    options.Filters.Add<ValidateCpfActionFilter>();
-    
-    }
+
+}
 );
 
 // metodos que tem autorização e action é para Get
 
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<IPessoaService, PessoaService>();
-builder.Services.AddScoped<GenerateProductActionFilter>(); // servicefilter
+builder.Services.AddScoped<GenerateProductActionFilter>();
+builder.Services.AddScoped<ValidateCpfActionFilter>();// servicefilter
+builder.Services.AddScoped<ITokenService, TokenService>();
+
 
 var app = builder.Build();
 

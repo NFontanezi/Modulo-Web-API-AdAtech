@@ -27,7 +27,7 @@ namespace APIPessoa.Filters
             }
         }
 
-       public override void OnActionExecuting(ActionExecutingContext context)
+      /* public override void OnActionExecuting(ActionExecutingContext context)
         {
         
             string cpfPessoa = (string)context.ActionArguments["cpf"];
@@ -37,6 +37,6 @@ namespace APIPessoa.Filters
                 context.Result = new StatusCodeResult(StatusCodes.Status404NotFound);
                 //tenho BadRequest no metodo, pq diferentes retornos???
             }
-        } 
+        } */
     }
 }

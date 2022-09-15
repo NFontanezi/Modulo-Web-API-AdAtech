@@ -5,12 +5,12 @@ namespace APIPessoa.Filters
     {
         public void OnResultExecuted(ResultExecutedContext context)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void OnResultExecuting(ResultExecutingContext context)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

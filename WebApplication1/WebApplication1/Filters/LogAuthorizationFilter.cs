@@ -15,7 +15,7 @@ namespace APIPessoa.Filters
 
                 context.Result = new StatusCodeResult((int)StatusCodes.Status401Unauthorized); 
             }
-            throw new NotImplementedException();
+           //throw new NotImplementedException();
         }
     }
 }

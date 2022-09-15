@@ -25,6 +25,9 @@ namespace APIPessoa.Core.Model
 
         public int Idade { get { return GetAge(); } }
 
+        [Required]
+        public string Permissao { get; set; }
+
         public static List<Pessoa> pessoas = new List<Pessoa>();
 
   

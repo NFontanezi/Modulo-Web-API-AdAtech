@@ -56,7 +56,7 @@ namespace APIPessoa.Controllers
         [HttpGet("/pessoa/consultar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [TypeFilter(typeof(LogActionFilter))] //sem injeção
-        [TypeFilter(typeof(LogAuthorizationFilter))]
+       // [TypeFilter(typeof(LogAuthorizationFilter))]
         
         public ActionResult<List<Pessoa>> GetPessoa()
         {
